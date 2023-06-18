@@ -1,0 +1,22 @@
+server:
+  port: 7070
+
+spring:
+  application:
+    name: analytics-service
+
+  data:
+    mongodb:
+      uri: mongodb://mongo:mongo@localhost:27017/analyticsdb?authSource=admin&authMechanism=SCRAM-SHA-1
+
+  kafka:
+    bootstrap-servers:
+      - localhost:9092
+    consumer:
+      group-id: analytics-service
+      auto-offset-reset: earliest
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.springframework.kafka.support.serializer.JsonDeserializer
+      properties:
+        group.instance.id: 1
+        spring.json.trusted.packages: "*"
